@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Authors list{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        {% if authors is empty %}
+            <div class="alert alert-warning" role="alert">
+                No Authors found
+            </div>
+            <a href="{{ path('author_new') }}" class="btn btn-primary">Click here to add a new author</a>
+        {% else %}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for author in authors %}
+                    <tr>
+                        <td>{{ author.id }}</td>
+                        <td>{{ author.username }}</td>
+                        <td>{{ author.email }}</td>
+                        <td>
+                            <!-- Add action buttons here if needed -->
+                            <a href="{{ path('author_edit', {'id': author.id}) }}">Edit</a>
+                            <form method="post" action="{{ path('author_delete', {'id': author.id}) }}" onsubmit="return confirm('Are you sure you want to delete this author?');" style="display:inline;">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ author.id) }}">
+                                <button class="btn">Delete</button>
+                            </form>
+
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td>
+                        <p>number of published books: {{ nb_published }}</p>
+                        <p>number of published books: {{ nb_unpublished }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <a href="{{ path('author_new') }}" class="btn btn-success">Add a new author</a>
+                    </td>
+                    <td colspan="4">
+                        <a class="btn btn-primary" href="{{ path('app_book') }}">Show Books</a>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}
