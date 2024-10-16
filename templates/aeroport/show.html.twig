@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Aeoprort list{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        {% if aeroports is empty %}
+            <div class="alert alert-warning" role="alert">
+                No Aeoprort found
+            </div>
+           
+        {% else %}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>ville </th>
+                    <th>actions </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for aeroport in aeroports %}
+                    <tr>
+                        <td>{{ aeroport.id }}</td>
+                        <td>{{ aeroport.nom }}</td>
+                        <td>{{ aeroport.ville}}</td>
+                        <td>
+                            <a href="{{ path('aeroport_edit', {'id': aeroport.id}) }}">Edit</a>
+
+                        </td>
+                        
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                    <a href={{path('aeroport_new')}}> add </a>
+                </tfoot>
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}
