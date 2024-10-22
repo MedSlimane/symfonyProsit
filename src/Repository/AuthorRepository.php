@@ -27,6 +27,19 @@ class AuthorRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    // DQL QUESTION 4
+    public function deleteZeroBooks() : void {
+        $em = $this->getEntityManager();
+
+        $query = $em->createQuery("Delete from App\Entity\Author a WHERE a.nb_books=0");
+
+        $query->execute();
+    }
+
+
+
+
+
     //    /**
     //     * @return Author[] Returns an array of Author objects
     //     */
