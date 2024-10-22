@@ -81,4 +81,13 @@ class BookController extends AbstractController
 
         return $this->redirectToRoute('app_book');
     }
+    #[Route('/book/trier', name:'trierBook')]
+    public function trier(BookRepository $bookRepository)
+    {
+        $books = $bookRepository->tri();
+        return $this->render('book/index.html.twig', [
+            'books' => $books,
+
+        ]);
+    }
 }

@@ -16,6 +16,15 @@ class BookRepository extends ServiceEntityRepository
         parent::__construct($registry, Book::class);
     }
 
+
+    public function tri(): array {
+
+        $em = $this->getEntityManager();
+
+        $query = $em->createQuery("Select b from App\Entity\Book b Order By b.publicationDate");
+
+        return $query->getResult();
+    }
     //    /**
     //     * @return Book[] Returns an array of Book objects
     //     */
