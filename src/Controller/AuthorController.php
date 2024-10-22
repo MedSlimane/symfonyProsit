@@ -108,5 +108,18 @@ class AuthorController extends AbstractController
         return $this->redirectToRoute('app_author');
     }
 
-    
+    #[Route('/author/listbyemail', name : 'listEmail')]
+    public function listEmail(AuthorRepository $authorRepository, BookRepository $bookRepository) : Response {
+
+        $authors = $authorRepository->listAuthorsByEmail();
+
+        $numberOfPublishedBooks = $bookRepository->count(['published' => true]);
+        $numberOfUnPublishedBooks = $bookRepository->count(['published' => false]);        
+
+        return $this->render('author/index.html.twig', [
+            'authors' => $authors,
+            'nb_published' => $numberOfPublishedBooks,
+            'nb_unpublished' => $numberOfUnPublishedBooks
+        ]);
+    }
 }
