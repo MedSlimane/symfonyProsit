@@ -40,12 +40,12 @@ class BookController extends AbstractController
             return $this->redirectToRoute('book_success');
         }
 
-        return $this->render('book/new.html.twig',[
+        return $this->render('book/new.html.twig', [
             'form' => $form->createView()
         ]);
     }
     #[Route('/book/success', name: 'book_success')]
-    public function successAdd() : Response
+    public function successAdd(): Response
     {
         return $this->render('book/success.html.twig');
     }
@@ -73,7 +73,7 @@ class BookController extends AbstractController
     #[Route('/book/delete/{id}', name: 'book_delete')]
     public function delete(Request $request, Book $book, ManagerRegistry $managerRegistry): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$book->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $book->getId(), $request->request->get('_token'))) {
             $e = $managerRegistry->getManager();
             $e->remove($book);
             $e->flush();
@@ -81,7 +81,7 @@ class BookController extends AbstractController
 
         return $this->redirectToRoute('app_book');
     }
-    #[Route('/book/trier', name:'trierBook')]
+    #[Route('/book/trier', name: 'trierBook')]
     public function trier(BookRepository $bookRepository)
     {
         $books = $bookRepository->tri();
@@ -90,13 +90,21 @@ class BookController extends AbstractController
 
         ]);
     }
-    #[Route('/book/nbromance', name:'nb_romance')]
+    #[Route('/book/nbromance', name: 'nb_romance')]
     public function nbRomance(BookRepository $bookRepository): Response
     {
         $nb = $bookRepository->getNumberBooksRomance();
 
-        return $this->render('/book/nbRomance.html.twig',[
+        return $this->render('/book/nbRomance.html.twig', [
             'nb' => $nb
+        ]);
+    }
+    #[Route('/book/date', name: 'bookdate')]
+    public function bookDate(BookRepository $bookRepository): Response {
+        $books = $bookRepository->getBookBetweenDates();
+
+        return $this->render('book/index.html.twig', [
+            'books' => $books,
         ]);
     }
 }

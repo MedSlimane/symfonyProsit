@@ -33,6 +33,16 @@ class BookRepository extends ServiceEntityRepository
 
         return (int) $query->getSingleScalarResult();
     }
+
+    public function getBookBetweenDates() : array {
+        $em = $this->getEntityManager();
+
+        $query = $em->createQuery('Select b from App\Entity\Book b Where b.publicationDate BETWEEN :d1 AND :d2')
+        ->setParameter('d1', "2014-1-1")
+        ->setParameter('d2',"2018-12-13");
+
+        return $query->getResult(); 
+        }
     //    /**
     //     * @return Book[] Returns an array of Book objects
     //     */
