@@ -54,7 +54,14 @@ class BookRepository extends ServiceEntityRepository
         ->getQuery()->getResult();
     }
 
+    // QUERY BUILDER QUESTION 3
 
+    public function bookListByAuthor() : array {
+        return $this->createQueryBuilder('b')
+            ->join('b.author', 'a')
+            ->orderBy('a.username')
+            ->getQuery()->getResult();
+    }
 
     
     //    /**

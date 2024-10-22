@@ -10,6 +10,11 @@
             </div>
             <a href="{{ path('book_new') }}" class="btn btn-primary">Click here to add a new book</a>
         {% else %}
+        <form action="{{path('findbookbyref')}}">
+
+            <input type="text" name="id">
+            <input type="submit">
+        </form>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -54,6 +59,7 @@
                 </tr>
                 </tfoot>
             </table>
+
         {% endif %}
     </div>
 {% endblock %}

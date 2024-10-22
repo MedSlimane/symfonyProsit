@@ -110,8 +110,18 @@ class BookController extends AbstractController
     #[Route('/book/findbyref', name: 'findbookbyref')]
     public function findbookById(Request $request, BookRepository $bookRepository) : Response {
         $id = $request->get("id");
+        if ($id != null)
+            $books = $bookRepository->getBookById($id);
+        else
+            $books = $bookRepository->findAll();
+        return $this->render('book/index.html.twig', [
+            'books' => $books,
+        ]);
+    }
+    #[Route('/book/byemail', name :'triBookbyemail')]
+    public function sortByEmail(BookRepository $bookRepository) : Response {
+        $books = $bookRepository->bookListByAuthor();
 
-        $books = $bookRepository->getBookById($id);
         return $this->render('book/index.html.twig', [
             'books' => $books,
         ]);
