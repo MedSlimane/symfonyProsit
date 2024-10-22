@@ -63,6 +63,27 @@ class BookRepository extends ServiceEntityRepository
             ->getQuery()->getResult();
     }
 
+    public function showBooksBeforeYear(int $nbBooks,string $year) : array {
+        return $this->createQueryBuilder('b')
+            ->join('b.author', 'a')
+            ->where('b.publicationDate < :year')
+            ->andWhere('a.nb_books < :nb')
+            ->setParameter(':year', $year)
+            ->setParameter(':nb', $nbBooks)
+            ->getQuery()
+            ->getResult();
+    }
+    public function changeCategory(string $category1, string $category2) : void {
+        
+        $this->getEntityManager()->createQueryBuilder()
+            ->update('App\Entity\Book', 'b')
+            ->set('b.category', ':c2')
+            ->where('b.category LIKE :c1')
+            ->setParameter(':c2', $category2)
+            ->setParameter(':c1', $category1)
+            ->getQuery()->execute();
+    }
+
     
     //    /**
     //     * @return Book[] Returns an array of Book objects

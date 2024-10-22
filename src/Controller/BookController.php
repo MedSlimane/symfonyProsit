@@ -126,4 +126,18 @@ class BookController extends AbstractController
             'books' => $books,
         ]);
     }
+    #[Route('/book/byyear', name :'bookbyyear')]
+    public function showByyear(BookRepository $bookRepository) : Response {
+        $books = $bookRepository->showBooksBeforeYear(10,"2023-1-1");
+
+        return $this->render('book/index.html.twig', [
+            'books' => $books,
+        ]);
+    }
+    #[Route('/book/change', name : 'change')]
+    public function changeCategory(BookRepository $bookRepository) : Response {
+        $bookRepository->changeCategory('sci-fi', 'romance');
+
+        return $this->redirectToRoute('app_book');
+    }
 }
