@@ -100,5 +100,10 @@ class AuthorController extends AbstractController
 
     }
 
-    
+    #[Route('/author/deletezero', name : 'deleteZeroBooks')]
+    public function deleteZeroBooks(AuthorRepository $authorRepository) : Response {
+        $authorRepository->deleteZeroBooks();
+
+        return $this->redirectToRoute('app_author');
+    }
 }
