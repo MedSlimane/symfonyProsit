@@ -90,4 +90,13 @@ class BookController extends AbstractController
 
         ]);
     }
+    #[Route('/book/nbromance', name:'nb_romance')]
+    public function nbRomance(BookRepository $bookRepository): Response
+    {
+        $nb = $bookRepository->getNumberBooksRomance();
+
+        return $this->render('/book/nbRomance.html.twig',[
+            'nb' => $nb
+        ]);
+    }
 }

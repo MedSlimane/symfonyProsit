@@ -25,6 +25,14 @@ class BookRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
+
+    public function getNumberBooksRomance() : array {
+        $em = $this->getEntityManager();
+
+        $query = $em->createQuery("Select Count(b) from App\Entity\Book b Where b.category='Romance'");
+
+        return $query->getSingleResult();
+    }
     //    /**
     //     * @return Book[] Returns an array of Book objects
     //     */

@@ -25,6 +25,7 @@ class BookType extends AbstractType
                     'Science-Fiction' => 'sci-fi',
                     'Mystery' => 'mystery',
                     'Auto-biography' => 'auto-biography',
+                    'Romance' => 'Romance'
                 ],
             ])
             ->add('author', EntityType::class, [
