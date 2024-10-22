@@ -16,6 +16,17 @@ class AuthorRepository extends ServiceEntityRepository
         parent::__construct($registry, Author::class);
     }
 
+    // DQL QUESTION 3
+    public function minMaxnbBooks(int $min, int $max) : array 
+    {
+        $em = $this->getEntityManager();
+
+        $query = $em->createQuery("Select a from App\Entity\Author a WHERE a.nb_books BETWEEN :min AND :max")
+            ->setParameter(':min', $min)
+            ->setParameter(':max', $max);
+        return $query->getResult();
+    }
+
     //    /**
     //     * @return Author[] Returns an array of Author objects
     //     */

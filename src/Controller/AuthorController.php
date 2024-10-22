@@ -82,4 +82,21 @@ class AuthorController extends AbstractController
         }
         return $this->redirectToRoute('app_author');
     }
+    #[Route('/author/minmax',name: 'authorMinMax')]
+    public function minMax(Request $request, AuthorRepository $authorRepository, BookRepository $bookRepository) : Response
+    {
+        $min = $request->get('min');
+        $max = $request->get('max');
+
+        $authors = $authorRepository->minMaxnbBooks($min,$max);
+
+        $numberOfPublishedBooks = $bookRepository->count(['published' => true]);
+        $numberOfUnPublishedBooks = $bookRepository->count(['published' => false]);
+        return $this->render('author/index.html.twig', [
+            'authors' => $authors,
+            'nb_published' => $numberOfPublishedBooks,
+            'nb_unpublished' => $numberOfUnPublishedBooks
+        ]);
+
+    }
 }

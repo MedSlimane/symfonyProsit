@@ -25,7 +25,7 @@ class BookRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
-
+    // DQL QUESTION 1
     public function getNumberBooksRomance() : int {
         $em = $this->getEntityManager();
 
@@ -33,7 +33,7 @@ class BookRepository extends ServiceEntityRepository
 
         return (int) $query->getSingleScalarResult();
     }
-
+    // DQL QUESTION 2
     public function getBookBetweenDates() : array {
         $em = $this->getEntityManager();
 
@@ -41,8 +41,11 @@ class BookRepository extends ServiceEntityRepository
         ->setParameter('d1', "2014-1-1")
         ->setParameter('d2',"2018-12-13");
 
-        return $query->getResult(); 
-        }
+        return $query->getResult();
+
+    }
+
+    
     //    /**
     //     * @return Book[] Returns an array of Book objects
     //     */
