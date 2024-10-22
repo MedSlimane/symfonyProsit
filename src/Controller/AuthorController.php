@@ -122,4 +122,5 @@ class AuthorController extends AbstractController
             'nb_unpublished' => $numberOfUnPublishedBooks
         ]);
     }
+    
 }

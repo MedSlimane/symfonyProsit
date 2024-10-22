@@ -45,6 +45,17 @@ class BookRepository extends ServiceEntityRepository
 
     }
 
+    // QUERY BUILDER QUESTION 2
+
+    public function getBookById(int $id) : array {
+        return $this->createQueryBuilder('b')
+        ->where('b.id =:id')
+        ->setParameter('id',$id)
+        ->getQuery()->getResult();
+    }
+
+
+
     
     //    /**
     //     * @return Book[] Returns an array of Book objects
